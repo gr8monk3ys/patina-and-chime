@@ -3,6 +3,7 @@ package io.github.gr8monk3ys.patinachime.test;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.serialization.JsonOps;
 import io.github.gr8monk3ys.patinachime.PatinaChime;
 import io.github.gr8monk3ys.patinachime.hopper.CopperHopperBlock;
 import io.github.gr8monk3ys.patinachime.hopper.CopperHopperBlockEntity;
@@ -54,6 +55,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BlockTypes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComparatorBlock;
 import net.minecraft.world.level.block.HopperBlock;
@@ -143,6 +145,36 @@ public class HopperGameTests {
 		helper.setBlock(sink, Blocks.CHEST);
 		container(helper, TOP).setItem(0, new ItemStack(CARGO, 32));
 		assertArrivalIntervals(helper, sink, 12);
+	}
+
+	// Exposed so the first hop can only be a push, and side by side because a hopper below would pull straight away, as vanilla's does.
+	@GameTest(environment = QUIET, maxTicks = 200)
+	public void anItemPushedIntoAnIdleHopperWaitsAFullCycle(GameTestHelper helper) {
+		BlockPos first = new BlockPos(1, 2, 1);
+		BlockPos second = first.east();
+		BlockPos sink = second.below();
+		helper.setBlock(first.above(), Blocks.HOPPER);
+		helper.setBlock(first, unwaxed(WeatherState.EXPOSED).defaultBlockState().setValue(HopperBlock.FACING, Direction.EAST));
+		helper.setBlock(second, unwaxed(WeatherState.UNAFFECTED));
+		helper.setBlock(sink, Blocks.CHEST);
+		long[] entered = {-1, -1, -1};
+		helper.startSequence().thenExecuteAfter(20, () -> container(helper, first.above()).setItem(0, new ItemStack(CARGO))).thenWaitUntil(() -> {
+			if (entered[0] < 0 && count(helper, first) == 1) {
+				entered[0] = helper.getTick();
+			}
+
+			if (entered[1] < 0 && count(helper, second) == 1) {
+				entered[1] = helper.getTick();
+			}
+
+			if (entered[2] < 0 && count(helper, sink) == 1) {
+				entered[2] = helper.getTick();
+			}
+
+			helper.assertTrue(entered[2] >= 0, "item has not reached the chest yet");
+			helper.assertTrue(entered[1] - entered[0] >= 15, "hop out of exposed took " + (entered[1] - entered[0]) + " ticks");
+			helper.assertTrue(entered[2] - entered[1] >= 11, "hop out of fresh took " + (entered[2] - entered[1]) + " ticks");
+		}).thenSucceed();
 	}
 
 	@GameTest(environment = QUIET)
@@ -468,6 +500,7 @@ public class HopperGameTests {
 		}
 
 		helper.assertValueEqual(waxer.getItemInHand(InteractionHand.MAIN_HAND).getCount(), 4, "honeycomb left after waxing four times");
+		helper.assertValueEqual(helper.getBlockState(CENTER).getValue(HopperBlock.FACING), Direction.NORTH, "facing after every stage change");
 		helper.startSequence().thenExecuteAfter(20, () -> assertKept(helper, CENTER, unwaxed(WeatherState.OXIDIZED), original, contents, "waiting")).thenSucceed();
 	}
 
@@ -488,6 +521,22 @@ public class HopperGameTests {
 			helper.assertValueEqual(count(helper, TOP) + count(helper, MIDDLE) + count(helper, BOTTOM), 64, "items across the column");
 			helper.assertTrue(helper.getEntities(EntityTypes.ITEM).isEmpty(), "a stage change dropped items");
 		}).thenExecute(() -> helper.assertTrue(count(helper, BOTTOM) > 0, "nothing moved during the run")).thenSucceed();
+	}
+
+	@GameTest(environment = QUIET, maxTicks = 300)
+	public void vanillaHoppersKeepWorkingAcrossAStageChange(GameTestHelper helper) {
+		BlockPos sink = new BlockPos(1, 0, 1);
+		helper.setBlock(sink, Blocks.CHEST);
+		helper.setBlock(BOTTOM, Blocks.HOPPER);
+		helper.setBlock(MIDDLE, unwaxed(WeatherState.UNAFFECTED));
+		helper.setBlock(TOP, Blocks.HOPPER);
+		container(helper, TOP).setItem(0, new ItemStack(CARGO, 12));
+		helper.startSequence().thenExecuteAfter(30, () -> {
+			helper.assertTrue(count(helper, sink) > 0, "nothing reached the chest before the stage change");
+			helper.setBlock(MIDDLE, unwaxed(WeatherState.EXPOSED).withPropertiesOf(helper.getBlockState(MIDDLE)));
+		}).thenWaitUntil(() -> helper.assertValueEqual(count(helper, sink), 12, "items that reached the chest")).thenExecute(() ->
+			helper.assertTrue(helper.getEntities(EntityTypes.ITEM).isEmpty(), "the stage change dropped items")
+		).thenSucceed();
 	}
 
 	@GameTest(environment = FAST_AGING, maxTicks = 2400)
@@ -631,6 +680,7 @@ public class HopperGameTests {
 				block + " has a different shape from the vanilla hopper"
 			);
 			helper.assertTrue(CopperHopperFeature.BLOCK_ENTITY.isValid(state), "the block entity type rejects " + block);
+			helper.assertTrue(BlockTypes.CODEC.codec().encodeStart(JsonOps.INSTANCE, block).isSuccess(), block + " has no registered block type");
 			helper.setBlock(CENTER, block);
 			helper.assertValueEqual(container(helper, CENTER).getContainerSize(), 5, "slots");
 			helper.setBlock(CENTER, Blocks.AIR);
