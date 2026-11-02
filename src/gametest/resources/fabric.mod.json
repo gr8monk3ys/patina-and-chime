@@ -14,6 +14,9 @@
 			"io.github.gr8monk3ys.patinachime.test.MusicGrowthGameTests",
 			"io.github.gr8monk3ys.patinachime.test.AmethystNoteGameTests",
 			"io.github.gr8monk3ys.patinachime.test.CrossFeatureGameTests"
+		],
+		"fabric-client-gametest": [
+			"io.github.gr8monk3ys.patinachime.test.VisualClientGameTest"
 		]
 	},
 	"depends": {

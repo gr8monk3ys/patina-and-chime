@@ -55,6 +55,12 @@ fabricApi {
 	}
 }
 
+configurations {
+	productionTestMods {
+		transitive = false
+	}
+}
+
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -63,6 +69,36 @@ dependencies {
 	if (project.hasProperty("compat")) {
 		compatMods[project.property("compat")].each { runtimeOnly it }
 	}
+
+	// The released Fabric API jar leaves out the test modules, so the production runs add them.
+	productionTestMods "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	productionTestMods fabricApi.module("fabric-gametest-api-v1", project.fabric_api_version)
+	productionTestMods fabricApi.module("fabric-client-gametest-api-v1", project.fabric_api_version)
+}
+
+// The same tests as runGameTest and runClientGameTest, against the jar a player installs instead of the dev classes.
+def gametestJar = tasks.register("gametestJar", Jar) {
+	from sourceSets.gametest.output
+	archiveClassifier = "gametest"
+	destinationDirectory = layout.buildDirectory.dir("production-test")
+}
+
+tasks.register("productionGameTest", net.fabricmc.loom.task.prod.ServerProductionRunTask) {
+	mods.from(tasks.named("jar"), gametestJar, configurations.productionTestMods)
+	installerVersion = "1.1.1"
+	jvmArgs.addAll("-Xmx1500M", "-Dfabric-api.gametest")
+	runDir = layout.buildDirectory.dir("run/productionGameTest")
+	doFirst {
+		def eula = runDir.file("eula.txt").get().asFile
+		eula.parentFile.mkdirs()
+		eula.text = "eula=true\n"
+	}
+}
+
+tasks.register("productionClientGameTest", net.fabricmc.loom.task.prod.ClientProductionRunTask) {
+	mods.from(tasks.named("jar"), gametestJar, configurations.productionTestMods)
+	jvmArgs.addAll("-Xmx1500M", "-Dfabric.client.gametest")
+	runDir = layout.buildDirectory.dir("run/productionClientGameTest")
 }
 
 processResources {
