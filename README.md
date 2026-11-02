@@ -14,9 +14,34 @@ Design: [docs/specs/2026-11-02-first-release-design.md](docs/specs/2026-11-02-fi
 ## Install
 
 1. Install [Fabric Loader](https://fabricmc.net/use/installer/) 0.20.1 or newer for Minecraft 26.2. The game needs Java 25.
-2. Put [Fabric API](https://modrinth.com/mod/fabric-api) for 26.2 and the [Patina & Chime jar](https://github.com/gr8monk3ys/patina-and-chime/releases/latest) in your `mods` folder.
+2. Put [Fabric API](https://modrinth.com/mod/fabric-api) for 26.2 (0.161.0 or newer) and the [Patina & Chime jar](https://github.com/gr8monk3ys/patina-and-chime/releases/latest) in your `mods` folder.
 
 The mod adds blocks and items, so your client and any server you join both need it. This version only runs on 26.2.
+
+## Copper hoppers
+
+Copper is cheaper than iron, so a copper hopper is slower than a vanilla one at every stage. In exchange, each stage does a different job.
+
+| Stage | Ticks per item | Pulls from the container above | Picks up dropped items | Redstone |
+|---|---|---|---|---|
+| Copper | 12 | Yes | Yes | Power locks it, like vanilla |
+| Exposed | 16 | No | Yes | Power locks it, like vanilla |
+| Weathered | 24 | Yes | Yes | Only runs while powered |
+| Oxidized | 32 | Yes | No | Power locks it, like vanilla |
+
+A vanilla hopper moves an item every 8 ticks. Copper hoppers age on their own. Wax one with honeycomb to keep its job, and scrape it with an axe to step it back. Its items stay put through every change.
+
+## Recipes
+
+| Makes | From |
+|---|---|
+| Copper hopper | 5 copper ingots and a chest, in the shape of a vanilla hopper |
+| Tuning fork | 3 copper ingots and an amethyst shard: copper in both top corners and bottom middle, the shard in the centre |
+| 2 verdigris | A copper ingot and a water bucket, which gives the empty bucket back |
+| Cyan dye | A verdigris |
+| Waxed copper hopper | A copper hopper of any stage and a honeycomb |
+
+Scraping an aged copper block or hopper with an axe also drops a verdigris.
 
 ## Building
 
@@ -29,6 +54,12 @@ Needs JDK 25.
 ```bash
 ./gradlew runGameTest
 ```
+
+```bash
+./gradlew runClientGameTest
+```
+
+Changes between versions are in [CHANGELOG.md](CHANGELOG.md).
 
 ## Licence
 

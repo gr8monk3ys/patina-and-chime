@@ -23,7 +23,7 @@ Fabric mod for Minecraft 26.2 (Java 25). The design is in `docs/specs/`; read it
 ./gradlew runClientGameTest
 ```
 
-To run alongside a popular mod that touches the same code, add `-Pcompat=lithium` or `-Pcompat=easymagic` to a run.
+To run alongside popular mods, add `-Pcompat=lithium` or `-Pcompat=sodium,jade` to a run. The names are at the top of `build.gradle`.
 
 Before a release, run the same suites against the jar a player installs, on a real dedicated server and client:
 
@@ -42,3 +42,17 @@ Before a release, run the same suites against the jar a player installs, on a re
 - Audio reuses vanilla sounds by id, so no audio files ship with the mod.
 - Mojang's mappings are used directly. Minecraft 26.x is not obfuscated, so there is no remapping.
 - Never run `./gradlew --stop`: it stops every daemon on the machine, including other sessions' builds.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in this repo's GitHub Issues, through the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five default labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `GLOSSARY.md` and `docs/adr/` at the repo root, created when first needed. See `docs/agents/domain.md`.

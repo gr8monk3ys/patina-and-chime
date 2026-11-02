@@ -193,6 +193,14 @@ public class MusicGrowthGameTests {
 	}
 
 	@GameTest
+	public void musicNeverSlowsAFasterGrowthChance(GameTestHelper helper) {
+		helper.setBlock(BUDDING, Blocks.BUDDING_AMETHYST);
+		playNote(helper, SOURCE);
+		helper.assertValueEqual(MusicGrowthFeature.growthChance(helper.getLevel(), helper.absolutePos(BUDDING), 1), 1, "chance another mod set to every tick");
+		helper.succeed();
+	}
+
+	@GameTest
 	public void randomTickUsesTheRadiusBoundary(GameTestHelper helper) {
 		helper.setBlock(BUDDING, Blocks.BUDDING_AMETHYST);
 

@@ -54,8 +54,9 @@ public abstract class EnchantmentMenuMixin extends AbstractContainerMenu {
 		return original.call(currency) / ShardOffers.itemsPerLapis(currency);
 	}
 
+	// The number at the end of a compiler-generated lambda's name can change in a patch.
 	@WrapOperation(
-		method = "lambda$clickMenuButton$0",
+		method = "/^lambda\\$clickMenuButton\\$\\d+$/",
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V")
 	)
 	private void patinachime$chargeInItems(ItemStack currency, int lapisCost, LivingEntity owner, Operation<Void> original) {

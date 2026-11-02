@@ -4,14 +4,29 @@ plugins {
 
 version = "${project.version}+${project.minecraft_version}"
 
-// Popular mods that touch the same code as this one. Load one into a run with -Pcompat=lithium.
+// Popular mods players run alongside this one. Load them into a run with -Pcompat=lithium or -Pcompat=sodium,jade.
 def compatMods = [
-	lithium: ["maven.modrinth:lithium:mc26.2-0.25.3-fabric"],
+	lithium: ["maven.modrinth:lithium:f7vZ0VWU"],
 	easymagic: [
 		"maven.modrinth:easy-magic:5CL4B48Y",
 		"maven.modrinth:puzzles-lib:TXPuVSH3",
 		"maven.modrinth:forge-config-api-port:rSd3GiG8",
 	],
+	sodium: ["maven.modrinth:sodium:xJZxADzI"],
+	iris: ["maven.modrinth:sodium:xJZxADzI", "maven.modrinth:iris:gxZWWnKH"],
+	continuity: ["maven.modrinth:continuity:mgUN5Xz2"],
+	modmenu: ["maven.modrinth:modmenu:iRo7AZXf", "maven.modrinth:placeholder-api:NDqH16LT"],
+	jei: ["maven.modrinth:jei:j62WSkzi", "maven.modrinth:mezzconfig:YhSCy5W4"],
+	rei: ["maven.modrinth:rei:4o0NSIMj", "maven.modrinth:architectury-api:ohb3PBGZ", "maven.modrinth:cloth-config:Nv3xnWXd"],
+	jade: ["maven.modrinth:jade:ue8CO97w"],
+	wthit: ["maven.modrinth:wthit:7hordoNl", "maven.modrinth:badpackets:SgNrUT3E"],
+	appleskin: ["maven.modrinth:appleskin:uo5bAN1Y"],
+	copperhopper: ["maven.modrinth:copper-hopper:ifTn94FS"],
+	copperierage: ["maven.modrinth:the-copperier-age:bdbcvdJj", "maven.modrinth:frozenlib:DFsk0uXB"],
+	c2me: ["maven.modrinth:c2me-fabric:4wjXxrDQ"],
+	carpet: ["maven.modrinth:carpet:bGrLxJ8v"],
+	ferritecore: ["maven.modrinth:ferrite-core:d5ddUdiB"],
+	krypton: ["maven.modrinth:krypton:5WeL0Nkz"],
 ]
 
 repositories {
@@ -67,7 +82,13 @@ dependencies {
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
 	if (project.hasProperty("compat")) {
-		compatMods[project.property("compat")].each { runtimeOnly it }
+		project.property("compat").split(",").each { name ->
+			if (!compatMods.containsKey(name)) {
+				throw new GradleException("no compat mod called ${name}, choose from ${compatMods.keySet()}")
+			}
+
+			compatMods[name].each { runtimeOnly it }
+		}
 	}
 
 	// The released Fabric API jar leaves out the test modules, so the production runs add them.
@@ -99,6 +120,12 @@ tasks.register("productionClientGameTest", net.fabricmc.loom.task.prod.ClientPro
 	mods.from(tasks.named("jar"), gametestJar, configurations.productionTestMods)
 	jvmArgs.addAll("-Xmx1500M", "-Dfabric.client.gametest")
 	runDir = layout.buildDirectory.dir("run/productionClientGameTest")
+	// ServerPlayClientGameTest starts a dedicated server in this directory.
+	doFirst {
+		def eula = runDir.file("eula.txt").get().asFile
+		eula.parentFile.mkdirs()
+		eula.text = "eula=true\n"
+	}
 }
 
 processResources {

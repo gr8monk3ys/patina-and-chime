@@ -8,6 +8,7 @@
 		"fabric-gametest": [
 			"io.github.gr8monk3ys.patinachime.test.SmokeGameTests",
 			"io.github.gr8monk3ys.patinachime.test.HopperGameTests",
+			"io.github.gr8monk3ys.patinachime.test.ModdedStorageGameTests",
 			"io.github.gr8monk3ys.patinachime.test.VerdigrisGameTests",
 			"io.github.gr8monk3ys.patinachime.test.TuningForkGameTests",
 			"io.github.gr8monk3ys.patinachime.test.EnchantingGameTests",
@@ -16,7 +17,8 @@
 			"io.github.gr8monk3ys.patinachime.test.CrossFeatureGameTests"
 		],
 		"fabric-client-gametest": [
-			"io.github.gr8monk3ys.patinachime.test.VisualClientGameTest"
+			"io.github.gr8monk3ys.patinachime.test.VisualClientGameTest",
+			"io.github.gr8monk3ys.patinachime.test.ServerPlayClientGameTest"
 		]
 	},
 	"depends": {
