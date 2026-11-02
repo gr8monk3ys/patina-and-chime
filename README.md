@@ -11,6 +11,13 @@ A vanilla+ Fabric mod for Minecraft 26.2 that gives copper and amethyst a shared
 
 Design: [docs/specs/2026-11-02-first-release-design.md](docs/specs/2026-11-02-first-release-design.md).
 
+## Install
+
+1. Install [Fabric Loader](https://fabricmc.net/use/installer/) 0.20.1 or newer for Minecraft 26.2. The game needs Java 25.
+2. Put [Fabric API](https://modrinth.com/mod/fabric-api) for 26.2 and the [Patina & Chime jar](https://github.com/gr8monk3ys/patina-and-chime/releases/latest) in your `mods` folder.
+
+The mod adds blocks and items, so your client and any server you join both need it. This version only runs on 26.2.
+
 ## Building
 
 Needs JDK 25.

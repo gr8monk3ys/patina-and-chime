@@ -7,6 +7,10 @@
 	"authors": [
 		"gr8monk3ys"
 	],
+	"contact": {
+		"sources": "https://github.com/gr8monk3ys/patina-and-chime",
+		"issues": "https://github.com/gr8monk3ys/patina-and-chime/issues"
+	},
 	"license": "MIT",
 	"icon": "assets/patinachime/icon.png",
 	"environment": "*",
