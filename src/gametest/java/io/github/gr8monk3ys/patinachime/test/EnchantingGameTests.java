@@ -492,6 +492,7 @@ public class EnchantingGameTests {
 		}
 
 		ServerPlayer player = helper.makeMockServerPlayerInLevel();
+		GameType.SURVIVAL.updatePlayerAbilities(player.getAbilities());
 		player.experienceLevel = START_LEVEL;
 		EnchantmentMenu menu = (EnchantmentMenu) Class.forName("fuzs.easymagic.common.world.inventory.ModEnchantmentMenu")
 			.getConstructor(int.class, Inventory.class, Container.class, ContainerLevelAccess.class)
