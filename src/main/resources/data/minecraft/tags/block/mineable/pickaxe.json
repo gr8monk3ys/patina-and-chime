@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "patinachime:copper_hopper",
+    "patinachime:waxed_copper_hopper",
+    "patinachime:exposed_copper_hopper",
+    "patinachime:waxed_exposed_copper_hopper",
+    "patinachime:weathered_copper_hopper",
+    "patinachime:waxed_weathered_copper_hopper",
+    "patinachime:oxidized_copper_hopper",
+    "patinachime:waxed_oxidized_copper_hopper"
+  ]
+}
