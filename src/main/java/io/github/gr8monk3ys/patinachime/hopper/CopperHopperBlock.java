@@ -2,9 +2,9 @@ package io.github.gr8monk3ys.patinachime.hopper;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.gr8monk3ys.patinachime.PatinaChime;
+import io.github.gr8monk3ys.patinachime.verdigris.VerdigrisFeature;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
@@ -67,19 +67,21 @@ public class CopperHopperBlock extends HopperBlock {
 	// The default result opens the menu first, so axes, honeycomb and verdigris would only work while sneaking.
 	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		return changesStage(stack, state.getBlock()) ? InteractionResult.PASS : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+		return changesStage(stack, state.getBlock(), player, hand) ? InteractionResult.PASS : super.useItemOn(stack, state, level, pos, player, hand, hitResult);
 	}
 
-	private static boolean changesStage(ItemStack stack, Block block) {
+	private static boolean changesStage(ItemStack stack, Block block, Player player, InteractionHand hand) {
 		if (stack.is(ItemTags.AXES)) {
-			return WeatheringCopper.getPrevious(block).isPresent() || HoneycombItem.WAX_OFF_BY_BLOCK.get().containsKey(block);
+			// AxeItem leaves copper alone when an offhand shield means the player wants to block, so the menu opens instead.
+			boolean wantsToBlock = hand == InteractionHand.MAIN_HAND && player.getOffhandItem().has(DataComponents.BLOCKS_ATTACKS);
+			return !wantsToBlock && (WeatheringCopper.getPrevious(block).isPresent() || HoneycombItem.WAX_OFF_BY_BLOCK.get().containsKey(block));
 		}
 
 		if (stack.is(Items.HONEYCOMB)) {
 			return HoneycombItem.WAXABLES.get().containsKey(block);
 		}
 
-		return BuiltInRegistries.ITEM.getKey(stack.getItem()).equals(PatinaChime.id("verdigris")) && WeatheringCopper.getNext(block).isPresent();
+		return stack.is(VerdigrisFeature.VERDIGRIS) && WeatheringCopper.getNext(block).isPresent();
 	}
 
 	@Override

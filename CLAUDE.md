@@ -25,6 +25,16 @@ Fabric mod for Minecraft 26.2 (Java 25). The design is in `docs/specs/`; read it
 
 To run alongside a popular mod that touches the same code, add `-Pcompat=lithium` or `-Pcompat=easymagic` to a run.
 
+Before a release, run the same suites against the jar a player installs, on a real dedicated server and client:
+
+```bash
+./gradlew productionGameTest
+```
+
+```bash
+./gradlew productionClientGameTest
+```
+
 ## Rules
 
 - No copper hopper stage may be faster than the vanilla hopper (8 ticks per item).

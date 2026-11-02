@@ -7,18 +7,12 @@
 	"authors": [
 		"gr8monk3ys"
 	],
-	"contact": {
-		"sources": "https://github.com/gr8monk3ys/patina-and-chime"
-	},
 	"license": "MIT",
 	"icon": "assets/patinachime/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"io.github.gr8monk3ys.patinachime.PatinaChime"
-		],
-		"client": [
-			"io.github.gr8monk3ys.patinachime.client.PatinaChimeClient"
 		]
 	},
 	"mixins": [
@@ -32,7 +26,7 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.19.5",
+		"fabricloader": ">=0.20.1",
 		"minecraft": "~26.2",
 		"java": ">=25",
 		"fabric-api": "*"

@@ -717,6 +717,18 @@ public class HopperGameTests {
 	}
 
 	@GameTest(environment = QUIET)
+	public void axeOpensTheMenuWhileAShieldIsInTheOffhand(GameTestHelper helper) {
+		helper.setBlock(CENTER, unwaxed(WeatherState.EXPOSED));
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+		player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.SHIELD));
+		BlockHitResult hit = hitOn(helper.absolutePos(CENTER));
+		InteractionResult result = helper.getBlockState(CENTER).useItemOn(new ItemStack(Items.IRON_AXE), helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
+		helper.assertTrue(result instanceof InteractionResult.TryEmptyHandInteraction, "an axe with a shield in the offhand should open the menu, got " + result);
+		helper.assertBlockPresent(unwaxed(WeatherState.EXPOSED), CENTER);
+		helper.succeed();
+	}
+
+	@GameTest(environment = QUIET)
 	public void tooltipsDescribeTheStageAndWarnAboutAging(GameTestHelper helper) {
 		Map<WeatherState, String> keys = Map.of(
 			WeatherState.UNAFFECTED, "tooltip.patinachime.hopper.fresh",

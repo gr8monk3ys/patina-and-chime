@@ -90,6 +90,15 @@ public class VisualClientGameTest implements FabricClientGameTest {
 
 			requireString("item.patinachime.verdigris");
 			requireString("item.patinachime.tuning_fork");
+			requireString("tooltip.patinachime.verdigris");
+			requireString("tooltip.patinachime.tuning_fork");
+			for (String job : List.of("fresh", "exposed", "weathered", "oxidized", "ages", "waxed")) {
+				requireString("tooltip.patinachime.hopper." + job);
+			}
+
+			for (String tier : List.of("none", "faint", "steady", "strong")) {
+				requireString("message.patinachime.tuning_fork." + tier);
+			}
 		});
 	}
 
