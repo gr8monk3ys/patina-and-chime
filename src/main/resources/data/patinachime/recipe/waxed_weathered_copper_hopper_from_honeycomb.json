@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "waxed_weathered_copper_hopper",
+  "ingredients": [
+    "patinachime:weathered_copper_hopper",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "id": "patinachime:waxed_weathered_copper_hopper"
+  }
+}
