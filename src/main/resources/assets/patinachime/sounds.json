@@ -17,6 +17,6 @@
 	},
 	"note_block.amethyst": {
 		"subtitle": "subtitles.patinachime.note_block.amethyst",
-		"sounds": ["minecraft:block/amethyst/resonate1"]
+		"sounds": ["minecraft:block/amethyst/step4"]
 	}
 }
