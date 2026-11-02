@@ -1,0 +1,21 @@
+{
+	"schemaVersion": 1,
+	"id": "patinachime-test",
+	"version": "1.0.0",
+	"name": "Patina & Chime tests",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"io.github.gr8monk3ys.patinachime.test.SmokeGameTests",
+			"io.github.gr8monk3ys.patinachime.test.HopperGameTests",
+			"io.github.gr8monk3ys.patinachime.test.VerdigrisGameTests",
+			"io.github.gr8monk3ys.patinachime.test.TuningForkGameTests",
+			"io.github.gr8monk3ys.patinachime.test.EnchantingGameTests",
+			"io.github.gr8monk3ys.patinachime.test.MusicGrowthGameTests",
+			"io.github.gr8monk3ys.patinachime.test.AmethystNoteGameTests"
+		]
+	},
+	"depends": {
+		"patinachime": "*"
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"tuning_fork.none": {
+		"subtitle": "subtitles.patinachime.tuning_fork.none",
+		"sounds": ["minecraft:block/amethyst/step1"]
+	},
+	"tuning_fork.faint": {
+		"subtitle": "subtitles.patinachime.tuning_fork.faint",
+		"sounds": ["minecraft:block/amethyst/shimmer"]
+	},
+	"tuning_fork.steady": {
+		"subtitle": "subtitles.patinachime.tuning_fork.steady",
+		"sounds": ["minecraft:block/amethyst/shimmer"]
+	},
+	"tuning_fork.strong": {
+		"subtitle": "subtitles.patinachime.tuning_fork.strong",
+		"sounds": ["minecraft:block/amethyst/shimmer"]
+	},
+	"note_block.amethyst": {
+		"subtitle": "subtitles.patinachime.note_block.amethyst",
+		"sounds": ["minecraft:block/amethyst/resonate1"]
+	}
+}

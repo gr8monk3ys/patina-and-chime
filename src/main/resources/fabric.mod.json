@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "patinachime",
+	"version": "${version}",
+	"name": "Patina & Chime",
+	"description": "Copper ages, and each age has its own job. Amethyst hears. A vanilla+ take on copper and amethyst.",
+	"authors": [
+		"gr8monk3ys"
+	],
+	"contact": {
+		"sources": "https://github.com/gr8monk3ys/patina-and-chime"
+	},
+	"license": "MIT",
+	"icon": "assets/patinachime/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.gr8monk3ys.patinachime.PatinaChime"
+		],
+		"client": [
+			"io.github.gr8monk3ys.patinachime.client.PatinaChimeClient"
+		]
+	},
+	"mixins": [
+		"patinachime.hopper.mixins.json",
+		"patinachime.items.mixins.json",
+		"patinachime.enchanting.mixins.json",
+		"patinachime.sound.mixins.json",
+		{
+			"config": "patinachime.enchanting.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "io.github.gr8monk3ys.patinachime.client.enchanting.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
