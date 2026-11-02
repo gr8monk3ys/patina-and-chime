@@ -12,7 +12,8 @@
 			"io.github.gr8monk3ys.patinachime.test.TuningForkGameTests",
 			"io.github.gr8monk3ys.patinachime.test.EnchantingGameTests",
 			"io.github.gr8monk3ys.patinachime.test.MusicGrowthGameTests",
-			"io.github.gr8monk3ys.patinachime.test.AmethystNoteGameTests"
+			"io.github.gr8monk3ys.patinachime.test.AmethystNoteGameTests",
+			"io.github.gr8monk3ys.patinachime.test.CrossFeatureGameTests"
 		]
 	},
 	"depends": {

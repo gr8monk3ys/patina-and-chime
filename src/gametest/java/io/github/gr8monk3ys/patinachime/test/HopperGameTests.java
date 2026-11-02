@@ -9,6 +9,7 @@ import io.github.gr8monk3ys.patinachime.hopper.CopperHopperBlock;
 import io.github.gr8monk3ys.patinachime.hopper.CopperHopperBlockEntity;
 import io.github.gr8monk3ys.patinachime.hopper.CopperHopperFeature;
 import io.github.gr8monk3ys.patinachime.hopper.CopperHopperStage;
+import io.github.gr8monk3ys.patinachime.verdigris.VerdigrisFeature;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -891,7 +892,7 @@ public class HopperGameTests {
 			helper.assertTrue(ItemStack.matches(current.getItem(slot), contents.get(slot)), step + " changed slot " + slot + " to " + current.getItem(slot));
 		}
 
-		helper.assertTrue(helper.getEntities(EntityTypes.ITEM).isEmpty(), step + " dropped items");
+		helper.assertTrue(helper.getEntities(EntityTypes.ITEM).stream().allMatch(item -> item.getItem().is(VerdigrisFeature.VERDIGRIS)), step + " dropped something other than verdigris");
 	}
 
 	private static void assertUse(GameTestHelper helper, Block block, ItemStack stack, BlockPos absolute, boolean reachesItem) {
