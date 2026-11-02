@@ -2,7 +2,11 @@
 	"required": true,
 	"package": "io.github.gr8monk3ys.patinachime.enchanting.mixin",
 	"compatibilityLevel": "JAVA_25",
-	"mixins": [],
+	"mixins": [
+		"EnchantmentMenuInvoker",
+		"EnchantmentMenuMixin",
+		"LapisSlotMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	},
