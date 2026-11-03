@@ -1,6 +1,6 @@
 # CurseForge listing
 
-Not submitted. Submit once someone other than the author has played it.
+Not submitted. Ready to submit: a tester other than the author has played 0.1.2, and 0.1.3 only adds a recipe. It needs the owner's CurseForge sign-in.
 
 Name: Patina & Chime. Slug: `patina-and-chime`. Type: Mods. Loader: Fabric. Game version: 26.2. Java: 25. Client and server: both. Release type: Release. Licence: MIT. Required dependency: Fabric API 0.161.0 or newer. Source: <https://github.com/gr8monk3ys/patina-and-chime>. Issues: <https://github.com/gr8monk3ys/patina-and-chime/issues>. Categories: Technology, and Utility & QoL (check the names on the form).
 
@@ -50,6 +50,10 @@ Budding amethyst within 8 blocks of a playing jukebox, or a note block that has 
 ### Amethyst note block
 
 Put a note block on a Block of Amethyst to play a pitched amethyst sound.
+
+### Shards from a Block of Amethyst
+
+A Block of Amethyst crafts into 4 shards, the reverse of vanilla's recipe.
 
 ### Good to know
 
