@@ -1,6 +1,6 @@
 # CurseForge listing
 
-Not submitted. Ready to submit: a tester other than the author has played 0.1.2, and 0.1.3 only adds a recipe. It needs the owner's CurseForge sign-in.
+Submitted 2026-11-02 and waiting on moderation: project 1780954, file 0.1.3. Third-party distribution is off, so downloads count toward CurseForge rewards. That setting is on the License tab and can be changed.
 
 Name: Patina & Chime. Slug: `patina-and-chime`. Type: Mods. Loader: Fabric. Game version: 26.2. Java: 25. Client and server: both. Release type: Release. Licence: MIT. Required dependency: Fabric API 0.161.0 or newer. Source: <https://github.com/gr8monk3ys/patina-and-chime>. Issues: <https://github.com/gr8monk3ys/patina-and-chime/issues>. Categories: Technology, and Utility & QoL (check the names on the form).
 
