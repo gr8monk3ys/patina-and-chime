@@ -39,6 +39,7 @@ A vanilla hopper moves an item every 8 ticks. Copper hoppers age on their own. W
 | Tuning fork | 3 copper ingots and an amethyst shard: copper in both top corners and bottom middle, the shard in the centre |
 | 2 verdigris | A copper ingot and a water bucket, which gives the empty bucket back |
 | Cyan dye | A verdigris |
+| 4 amethyst shards | A Block of Amethyst. Four shards still make a block, as in vanilla |
 | Waxed copper hopper | A copper hopper of any stage and a honeycomb |
 
 Scraping an aged copper block or hopper with an axe also drops a verdigris.

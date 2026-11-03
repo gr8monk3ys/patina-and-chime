@@ -82,6 +82,7 @@ The table speaks in unreadable runes, and amethyst hears it. The lapis slot also
 - **Shards:** cost 2/4/6 and show every enchantment in each offer. Doubling the cost is what keeps lapis worth using.
 - XP costs and the actual enchantment results do not change. Shards reveal offers; they don't change them.
 - Shift-clicking moves shards into the slot, as with lapis.
+- A Block of Amethyst crafts back into 4 shards, the reverse of vanilla's recipe.
 - The hover text shows the shard cost, and an offer's button is only enabled when there are enough shards for it.
 - **Reveal is computed on the client** using the same vanilla method and seed the menu already uses for its clue, so no custom network payload is needed. A modified client could read offers without paying, which is acceptable: free mods already do this.
 
