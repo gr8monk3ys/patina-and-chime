@@ -19,7 +19,7 @@ A shatter note fires when all of these are true:
 - The note actually sounds. The hook is `NoteBlock.triggerEvent` returning true, the same place that records music, so a block swapped out before the queued event runs doesn't fire. A note block with something above it never gets that far, as in vanilla.
 - It's running on the server.
 
-Clicking and redstone both work, since both reach `triggerEvent`.
+Redstone and clicks both work, since both reach `triggerEvent`. A left-click plays the current note, so it fires at 24. A right-click changes the note first, so it fires from 23 and not from 24, which wraps to 0.
 
 ## What it breaks
 
@@ -68,7 +68,10 @@ Fabric GameTests, written before the code where practical:
 
 | Case | Expected |
 |---|---|
-| Top note, by click and by redstone, cluster on budding amethyst | Cluster breaks and drops exactly 2 shards |
+| Top note, by left-click and by redstone, cluster on budding amethyst | Cluster breaks and drops exactly 2 shards |
+| Right-click at note 23 | Cluster breaks |
+| Right-click at note 24 | Nothing breaks |
+| Cluster whose budding amethyst is in an unloaded chunk | Stays, and that chunk stays unloaded |
 | Cluster exactly 8 blocks away | Breaks |
 | Cluster just outside 8 blocks | Stays |
 | Buds of every size | Stay |
