@@ -18,6 +18,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.locale.Language;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.ChatVisiblity;
 
 /**
  * Renders what the server-side tests can't see and saves screenshots to look at by hand. It also checks that what a
@@ -32,6 +33,7 @@ public class VisualClientGameTest implements FabricClientGameTest {
 		context.getInput().resizeWindow(1280, 720);
 		// A disc plays later on, and this window opens on a machine people are using.
 		context.runOnClient(client -> client.options.getSoundSourceOptionInstance(SoundSource.MASTER).set(0.0));
+		context.runOnClient(client -> client.options.chatVisibility().set(ChatVisiblity.HIDDEN));
 
 		try (TestSingleplayerContext world = context.worldBuilder().create()) {
 			TestServerContext server = world.getServer();
@@ -48,6 +50,11 @@ public class VisualClientGameTest implements FabricClientGameTest {
 			enchanting(context, server, connection);
 			music(context, server, connection);
 		}
+	}
+
+	private static void shot(ClientGameTestContext context, String name) {
+		context.runOnClient(client -> client.gui.toastManager().clear());
+		context.takeScreenshot(name);
 	}
 
 	private static void assertSoundsAndStringsResolve(ClientGameTestContext context) {
@@ -112,16 +119,16 @@ public class VisualClientGameTest implements FabricClientGameTest {
 		fly(context, server, connection);
 		hideHud(context, true);
 		view(context, connection, server, "2 %d 8 facing 2 %d 2".formatted(Y + 1, Y));
-		context.takeScreenshot("hoppers-from-the-side");
+		shot(context, "hoppers-from-the-side");
 		view(context, connection, server, "2 %d -2 facing 2 %d 2".formatted(Y + 3, Y));
-		context.takeScreenshot("hoppers-from-above");
+		shot(context, "hoppers-from-above");
 		view(context, connection, server, "-3 %d 2 facing 2 %d 2".formatted(Y + 1, Y));
-		context.takeScreenshot("hoppers-from-the-end");
+		shot(context, "hoppers-from-the-end");
 
 		hideHud(context, false);
 		view(context, connection, server, "0.5 %d -2 facing 0.5 %d 0.5".formatted(Y + 1, Y));
 		open(context, connection, new BlockPos(0, Y, 0), HopperScreen.class);
-		context.takeScreenshot("hopper-menu");
+		shot(context, "hopper-menu");
 		close(context);
 	}
 
@@ -133,14 +140,14 @@ public class VisualClientGameTest implements FabricClientGameTest {
 
 		connection.waitForClientboundPackets();
 		context.waitTicks(2);
-		context.takeScreenshot("hotbar");
+		shot(context, "hotbar");
 		context.setScreen(() -> new InventoryScreen(Minecraft.getInstance().player));
 		hoverHotbar(context, 0);
-		context.takeScreenshot("verdigris-tooltip");
+		shot(context, "verdigris-tooltip");
 		hoverHotbar(context, 1);
-		context.takeScreenshot("tuning-fork-tooltip");
+		shot(context, "tuning-fork-tooltip");
 		hoverHotbar(context, 2);
-		context.takeScreenshot("hopper-tooltip");
+		shot(context, "hopper-tooltip");
 
 		context.setScreen(() -> null);
 	}
@@ -156,17 +163,17 @@ public class VisualClientGameTest implements FabricClientGameTest {
 		}
 
 		openEnchantingTable(context, server, connection);
-		context.takeScreenshot("enchanting-empty");
+		shot(context, "enchanting-empty");
 
 		move(context, connection, MENU_SWORD, MENU_ITEM);
-		context.takeScreenshot("enchanting-sword-no-currency");
+		shot(context, "enchanting-sword-no-currency");
 
 		for (int shards = 1; shards <= 6; shards++) {
 			addOneShard(context, connection);
 			if (shards == 1 || shards == 3 || shards == 6) {
 				for (int offer = 0; offer < 3; offer++) {
 					hoverOffer(context, offer);
-					context.takeScreenshot("enchanting-%d-shards-offer-%d".formatted(shards, offer + 1));
+					shot(context, "enchanting-%d-shards-offer-%d".formatted(shards, offer + 1));
 				}
 			}
 		}
@@ -174,7 +181,7 @@ public class VisualClientGameTest implements FabricClientGameTest {
 		move(context, connection, MENU_CURRENCY, MENU_SHARDS);
 		move(context, connection, MENU_LAPIS, MENU_CURRENCY);
 		hoverOffer(context, 2);
-		context.takeScreenshot("enchanting-lapis-offer-3");
+		shot(context, "enchanting-lapis-offer-3");
 		move(context, connection, MENU_CURRENCY, MENU_LAPIS);
 
 		for (int offer = 0; offer < 3; offer++) {
