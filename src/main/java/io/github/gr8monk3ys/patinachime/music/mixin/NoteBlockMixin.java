@@ -4,8 +4,10 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.gr8monk3ys.patinachime.music.AmethystNoteFeature;
 import io.github.gr8monk3ys.patinachime.music.MusicGrowthFeature;
+import io.github.gr8monk3ys.patinachime.music.ShatterNoteFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.NoteBlock;
@@ -31,6 +33,9 @@ abstract class NoteBlockMixin {
 	private void patinachime$recordNote(BlockState state, Level level, BlockPos pos, int b0, int b1, CallbackInfoReturnable<Boolean> cir) {
 		if (cir.getReturnValueZ()) {
 			MusicGrowthFeature.onNotePlayed(level, pos);
+			if (level instanceof ServerLevel serverLevel) {
+				ShatterNoteFeature.onNotePlayed(serverLevel, pos);
+			}
 		}
 	}
 }

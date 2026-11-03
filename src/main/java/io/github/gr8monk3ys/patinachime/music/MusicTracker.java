@@ -30,6 +30,10 @@ public final class MusicTracker {
 		this.expiries.remove(pos.asLong());
 	}
 
+	public boolean isActiveAt(BlockPos pos, long now) {
+		return this.expiries.get(pos.asLong()) > now;
+	}
+
 	public boolean isActiveNear(BlockPos pos, long now) {
 		ObjectIterator<Long2LongMap.Entry> entries = this.expiries.long2LongEntrySet().fastIterator();
 		while (entries.hasNext()) {
@@ -48,10 +52,18 @@ public final class MusicTracker {
 		return this.expiries.size();
 	}
 
+	public static boolean isWithinRadius(BlockPos pos, BlockPos source) {
+		return isWithinRadius(pos, source.getX(), source.getY(), source.getZ());
+	}
+
 	private static boolean isWithinRadius(BlockPos pos, long source) {
-		long dx = pos.getX() - BlockPos.getX(source);
-		long dy = pos.getY() - BlockPos.getY(source);
-		long dz = pos.getZ() - BlockPos.getZ(source);
+		return isWithinRadius(pos, BlockPos.getX(source), BlockPos.getY(source), BlockPos.getZ(source));
+	}
+
+	private static boolean isWithinRadius(BlockPos pos, int sourceX, int sourceY, int sourceZ) {
+		long dx = pos.getX() - sourceX;
+		long dy = pos.getY() - sourceY;
+		long dz = pos.getZ() - sourceZ;
 		return dx * dx + dy * dy + dz * dz <= RADIUS_SQUARED;
 	}
 }

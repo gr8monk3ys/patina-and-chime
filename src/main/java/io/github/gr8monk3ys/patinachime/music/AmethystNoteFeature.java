@@ -30,10 +30,13 @@ public final class AmethystNoteFeature {
 	 * instrument below has already changed the block state's instrument away from harp, and keeps its vanilla sound.
 	 */
 	public static Holder<SoundEvent> noteSound(BlockGetter level, BlockPos pos, Holder<SoundEvent> vanillaSound) {
+		return isAmethystNote(level, pos) ? NOTE_SOUND : vanillaSound;
+	}
+
+	public static boolean isAmethystNote(BlockGetter level, BlockPos pos) {
 		BlockState state = level.getBlockState(pos);
-		boolean onAmethyst = state.is(Blocks.NOTE_BLOCK)
+		return state.is(Blocks.NOTE_BLOCK)
 			&& state.getValue(NoteBlock.INSTRUMENT) == NoteBlockInstrument.HARP
 			&& level.getBlockState(pos.below()).is(Blocks.AMETHYST_BLOCK);
-		return onAmethyst ? NOTE_SOUND : vanillaSound;
 	}
 }

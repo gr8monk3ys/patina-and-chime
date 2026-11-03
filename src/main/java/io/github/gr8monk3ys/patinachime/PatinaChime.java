@@ -4,6 +4,7 @@ import io.github.gr8monk3ys.patinachime.enchanting.EnchantingFeature;
 import io.github.gr8monk3ys.patinachime.hopper.CopperHopperFeature;
 import io.github.gr8monk3ys.patinachime.music.AmethystNoteFeature;
 import io.github.gr8monk3ys.patinachime.music.MusicGrowthFeature;
+import io.github.gr8monk3ys.patinachime.music.ShatterNoteFeature;
 import io.github.gr8monk3ys.patinachime.tuningfork.TuningForkFeature;
 import io.github.gr8monk3ys.patinachime.verdigris.VerdigrisFeature;
 import net.fabricmc.api.ModInitializer;
@@ -23,6 +24,7 @@ public class PatinaChime implements ModInitializer {
 		EnchantingFeature.init();
 		MusicGrowthFeature.init();
 		AmethystNoteFeature.init();
+		ShatterNoteFeature.init();
 	}
 
 	public static Identifier id(String path) {
