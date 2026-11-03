@@ -1,6 +1,6 @@
 # Modrinth listing
 
-Not submitted. Modrinth's [Content Rules](https://modrinth.com/legal/rules) don't allow a public project that is primarily or entirely AI output, and Claude wrote this mod's code, the scripts that draw its art and its listing text. A public listing depends on the steps below.
+A private draft exists (project `bifVX4nl`) with 0.1.3, the page, screenshots, icon and the AI disclosure filled in. It hasn't been submitted, because the art and page are still the AI-made ones the steps below replace. Modrinth's [Content Rules](https://modrinth.com/legal/rules) don't allow a public project that is primarily or entirely AI output, and Claude wrote this mod's code, the scripts that draw its art and its listing text. A public listing depends on the steps below.
 
 Slug: `patina-and-chime`. Type: mod. Loader: Fabric. Game version: 26.2. Client and server: both required. Licence: MIT. Dependency: Fabric API (required). Source: <https://github.com/gr8monk3ys/patina-and-chime>. Issues: <https://github.com/gr8monk3ys/patina-and-chime/issues>. Categories: game-mechanics, technology, utility.
 
