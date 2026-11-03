@@ -1,10 +1,10 @@
 # CurseForge listing
 
-Submitted 2026-11-02 and waiting on moderation: project 1780954, file 0.1.3. Third-party distribution is off, so downloads count toward CurseForge rewards. That setting is on the License tab and can be changed.
+Submitted 2026-11-02 and waiting on moderation: project 1780954, files 0.1.3 and 0.2.0. The project won't be public until a moderator approves it. Third-party distribution is off, so downloads count toward CurseForge rewards. That setting is on the License tab and can be changed.
 
 Name: Patina & Chime. Slug: `patina-and-chime`. Type: Mods. Loader: Fabric. Game version: 26.2. Java: 25. Client and server: both. Release type: Release. Licence: MIT. Required dependency: Fabric API 0.161.0 or newer. Source: <https://github.com/gr8monk3ys/patina-and-chime>. Issues: <https://github.com/gr8monk3ys/patina-and-chime/issues>. Categories: Technology, and Utility & QoL (check the names on the form).
 
-File: `patina-and-chime-0.1.3+26.2.jar` from the `v0.1.3` release, sha256 `a6ed0e798dae5a514d9e770263b46bb42de320b256b0d11871d6f1d446ee7d8b`. Changelog: First release.
+File: `patina-and-chime-0.2.0+26.2.jar` from the `v0.2.0` release, sha256 `249989b6fd9c7f4ae2d4df0884398778ee27a6d4671793745179d8fc8dcbc4ce`. Changelog: the 0.2.0 entry in [CHANGELOG.md](../CHANGELOG.md).
 
 Avatar: the mod icon at 400×400. Gallery, from `./gradlew productionClientGameTest`: `0000_hoppers-from-the-side`, `0001_hoppers-from-above`, `0003_hopper-menu`, `0007_hopper-tooltip`, `0015_enchanting-3-shards-offer-3`, `0019_enchanting-lapis-offer-3`, `0020_music-growth-particles`.
 

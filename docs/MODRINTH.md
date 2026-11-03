@@ -1,16 +1,9 @@
 # Modrinth listing
 
-A private draft exists (project `bifVX4nl`) with 0.1.3, the page, screenshots, icon and the AI disclosure filled in. It hasn't been submitted, because the art and page are still the AI-made ones the steps below replace. Modrinth's [Content Rules](https://modrinth.com/legal/rules) don't allow a public project that is primarily or entirely AI output, and Claude wrote this mod's code, the scripts that draw its art and its listing text. A public listing depends on the steps below.
+Submitted for review 2026-11-02 at the owner's request: project `bifVX4nl`, versions 0.1.3 and 0.2.0, with the page, screenshots and icon. The "Contains AI-generated content" disclosure is on for code, assets and text, and says Claude wrote the code, the scripts that draw the art and the page.
+
+Modrinth's [Content Rules](https://modrinth.com/legal/rules) don't allow a public project that is primarily or entirely AI output, and they cover images derived from AI output too. This project is AI-written and says so, so moderators may reject it or keep it unlisted. If they do, the options are the ones they offer in the moderation thread, or hand-drawn art and a hand-written page if that turns out to be enough.
 
 Slug: `patina-and-chime`. Type: mod. Loader: Fabric. Game version: 26.2. Client and server: both required. Licence: MIT. Dependency: Fabric API (required). Source: <https://github.com/gr8monk3ys/patina-and-chime>. Issues: <https://github.com/gr8monk3ys/patina-and-chime/issues>. Categories: game-mechanics, technology, utility.
 
-## Before submitting
-
-1. Ask Modrinth support whether hand-drawn art and a hand-written page are enough while the code stays AI-written. Don't start on the art until they answer.
-2. Draw all 19 images by hand from scratch, without tracing the current ones, because the rules also cover images derived from AI output:
-   - 12 block textures, 16×16: outside, top and inside for each of the 4 stages. Waxed blocks reuse these.
-   - 6 item textures, 16×16: one hopper per stage, the tuning fork and verdigris.
-   - The icon, 128×128.
-3. Release a new version with that art, and take new gallery screenshots from it with `./gradlew productionClientGameTest`.
-4. Write the page by hand. The summary should be short, unformatted and not repeat the title. [CURSEFORGE.md](CURSEFORGE.md) has the facts to work from.
-5. Turn on the "Contains AI-generated content" disclosure.
+The page text and summary are the ones in [CURSEFORGE.md](CURSEFORGE.md).
