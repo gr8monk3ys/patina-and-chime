@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_verdigris": {
+      "conditions": {
+        "items": [
+          {
+            "items": "patinachime:verdigris"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "patinachime:cyan_dye_from_verdigris"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_verdigris"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "patinachime:cyan_dye_from_verdigris"
+    ]
+  }
+}

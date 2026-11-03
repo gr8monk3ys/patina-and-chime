@@ -242,6 +242,45 @@ public class HopperGameTests {
 		}).thenSucceed();
 	}
 
+	// A chest isn't a full block, so only the container check stops this, as it does in vanilla.
+	@GameTest(environment = QUIET, maxTicks = 120)
+	public void exposedLeavesItemsLyingOnAChestAbove(GameTestHelper helper) {
+		List<Block> blocks = List.of(unwaxed(WeatherState.EXPOSED), waxed(WeatherState.EXPOSED));
+		for (int i = 0; i < blocks.size(); i++) {
+			BlockPos hopper = new BlockPos(1, 1, 1 + i * 3);
+			helper.setBlock(hopper, blocks.get(i));
+			helper.setBlock(hopper.above(), Blocks.CHEST);
+			helper.spawnItem(Items.IRON_INGOT, hopper.above(2));
+		}
+
+		helper.startSequence().thenExecuteAfter(60, () -> {
+			for (int i = 0; i < blocks.size(); i++) {
+				helper.assertTrue(container(helper, new BlockPos(1, 1, 1 + i * 3)).isEmpty(), "exposed took an item off the chest above");
+			}
+
+			helper.assertValueEqual(helper.getEntities(EntityTypes.ITEM).size(), 2, "items still lying on the chests");
+		}).thenSucceed();
+	}
+
+	@GameTest(environment = QUIET, maxTicks = 120)
+	public void aPullThatDoesNotFitLeavesTheChestAlone(GameTestHelper helper) {
+		helper.setBlock(CENTER, unwaxed(WeatherState.UNAFFECTED));
+		helper.setBlock(CENTER.above(), Blocks.CHEST);
+		BaseContainerBlockEntity chest = container(helper, CENTER.above());
+		chest.setItem(0, new ItemStack(CARGO, 1));
+		chest.setItem(1, new ItemStack(CARGO, 2));
+		BaseContainerBlockEntity hopper = container(helper, CENTER);
+		for (int slot = 0; slot < hopper.getContainerSize(); slot++) {
+			hopper.setItem(slot, new ItemStack(Items.IRON_INGOT));
+		}
+
+		helper.startSequence().thenExecuteAfter(40, () -> {
+			helper.assertValueEqual(chest.getItem(0).getCount(), 1, "the last item in a slot");
+			helper.assertValueEqual(chest.getItem(1).getCount(), 2, "items in a slot with more left");
+			helper.assertValueEqual(hopper.countItem(CARGO), 0, "items that should not have fit");
+		}).thenSucceed();
+	}
+
 	@GameTest(environment = QUIET, maxTicks = 120)
 	public void oxidizedIgnoresDroppedItemsButPulls(GameTestHelper helper) {
 		List<Block> blocks = List.of(unwaxed(WeatherState.OXIDIZED), waxed(WeatherState.OXIDIZED));
@@ -739,7 +778,7 @@ public class HopperGameTests {
 		for (WeatherState state : WeatherState.values()) {
 			List<String> unwaxedLines = tooltipKeys(unwaxed(state));
 			helper.assertTrue(unwaxedLines.contains(keys.get(state)), state + " tooltip: " + unwaxedLines);
-			helper.assertTrue(unwaxedLines.contains("tooltip.patinachime.hopper.ages"), "no aging warning: " + unwaxedLines);
+			helper.assertValueEqual(unwaxedLines.contains("tooltip.patinachime.hopper.ages"), state != WeatherState.OXIDIZED, state + " aging warning: " + unwaxedLines);
 			helper.assertFalse(unwaxedLines.contains("tooltip.patinachime.hopper.waxed"), "unwaxed claims to be waxed: " + unwaxedLines);
 
 			List<String> waxedLines = tooltipKeys(waxed(state));
@@ -777,7 +816,13 @@ public class HopperGameTests {
 		int vanilla = items.indexOf(Items.HOPPER);
 		helper.assertTrue(vanilla >= 0, "the vanilla hopper is missing from the tab");
 		List<Item> expected = CopperHopperFeature.ITEMS.asList();
-		helper.assertValueEqual(items.subList(vanilla + 1, vanilla + 1 + expected.size()), expected, "items after the vanilla hopper");
+		int last = items.lastIndexOf(expected.getLast());
+		helper.assertTrue(last > vanilla, "the last copper hopper isn't after the vanilla one");
+		List<Item> after = items.subList(vanilla + 1, last + 1);
+		helper.assertValueEqual(after.stream().filter(expected::contains).toList(), expected, "items after the vanilla hopper");
+		// Another mod's hopper can sit among them, but nothing else.
+		List<Item> unrelated = after.stream().filter(item -> !expected.contains(item) && !BuiltInRegistries.ITEM.getKey(item).getPath().contains("hopper")).toList();
+		helper.assertValueEqual(unrelated, List.of(), "unrelated items among the hoppers");
 		helper.succeed();
 	}
 

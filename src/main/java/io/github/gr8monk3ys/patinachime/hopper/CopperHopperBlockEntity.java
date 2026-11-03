@@ -2,6 +2,12 @@ package io.github.gr8monk3ys.patinachime.hopper;
 
 import java.util.function.BooleanSupplier;
 import java.util.stream.IntStream;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -80,12 +86,14 @@ public class CopperHopperBlockEntity extends RandomizableContainerBlockEntity im
 
 	private boolean eject(Level level, BlockPos pos, BlockState state) {
 		Direction facing = state.getValue(HopperBlock.FACING);
-		Container target = HopperBlockEntity.getContainerAt(level, pos.relative(facing));
+		BlockPos targetPos = pos.relative(facing);
+		Direction side = facing.getOpposite();
+		Container target = HopperBlockEntity.getContainerAt(level, targetPos);
 		if (target == null) {
-			return false;
+			Storage<ItemVariant> storage = ItemStorage.SIDED.find(level, targetPos, side);
+			return storage != null && StorageUtil.move(ContainerStorage.of(this, facing), storage, variant -> true, 1, null) == 1;
 		}
 
-		Direction side = facing.getOpposite();
 		if (isFull(target, side)) {
 			return false;
 		}
@@ -104,11 +112,14 @@ public class CopperHopperBlockEntity extends RandomizableContainerBlockEntity im
 
 	private boolean takeIn(Level level, CopperHopperStage stage) {
 		BlockPos above = this.getBlockPos().above();
-		if (stage.pullsFromAbove()) {
-			Container source = HopperBlockEntity.getContainerAt(level, above);
-			if (source != null) {
-				return this.pullFrom(source);
-			}
+		Container source = HopperBlockEntity.getContainerAt(level, above);
+		if (source != null) {
+			return stage.pullsFromAbove() && this.pullFrom(source);
+		}
+
+		Storage<ItemVariant> storage = ItemStorage.SIDED.find(level, above, Direction.DOWN);
+		if (storage != null) {
+			return stage.pullsFromAbove() && StorageUtil.move(storage, ContainerStorage.of(this, Direction.UP), variant -> true, 1, null) == 1;
 		}
 
 		if (!stage.picksUpItems()) {
@@ -134,11 +145,18 @@ public class CopperHopperBlockEntity extends RandomizableContainerBlockEntity im
 			ItemStack stack = source.getItem(slot);
 			if (!stack.isEmpty()
 				&& source.canTakeItem(this, slot, stack)
-				&& (!(source instanceof WorldlyContainer worldly) || worldly.canTakeItemThroughFace(slot, stack, Direction.DOWN))
-				&& HopperBlockEntity.addItem(source, this, stack.copyWithCount(1), null).isEmpty()) {
-				source.removeItem(slot, 1);
-				source.setChanged();
-				return true;
+				&& (!(source instanceof WorldlyContainer worldly) || worldly.canTakeItemThroughFace(slot, stack, Direction.DOWN))) {
+				int count = stack.getCount();
+				if (HopperBlockEntity.addItem(source, this, source.removeItem(slot, 1), null).isEmpty()) {
+					source.setChanged();
+					return true;
+				}
+
+				// Puts back an item that didn't fit, the way vanilla does.
+				stack.setCount(count);
+				if (count == 1) {
+					source.setItem(slot, stack);
+				}
 			}
 		}
 
@@ -185,11 +203,12 @@ public class CopperHopperBlockEntity extends RandomizableContainerBlockEntity im
 
 	// Vanilla paces a hopper that just got its first item, but only when the receiver is a HopperBlockEntity.
 	// Items arrive here through setItem both in vanilla's code and in Lithium's, so a chain keeps its rate under either.
+	// A Fabric transaction also empties and refills slots just to test a move, so nothing in one counts as an arrival.
 	@Override
 	public void setItem(int slot, ItemStack stack) {
 		boolean wasEmpty = this.isEmpty();
 		super.setItem(slot, stack);
-		if (wasEmpty && !stack.isEmpty() && this.level != null) {
+		if (wasEmpty && !stack.isEmpty() && this.level != null && !Transaction.isOpen()) {
 			int ticksPerItem = stageOf(this.getBlockState()).ticksPerItem();
 			if (this.cooldownTime <= ticksPerItem) {
 				this.cooldownTime = this.tickedGameTime >= this.level.getGameTime() ? ticksPerItem - 1 : ticksPerItem;

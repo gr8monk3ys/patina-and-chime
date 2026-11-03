@@ -20,9 +20,9 @@ public class CopperHopperItem extends BlockItem {
 		super.appendHoverText(stack, context, display, builder, flag);
 		CopperHopperBlock block = (CopperHopperBlock) this.getBlock();
 		builder.accept(Component.translatable(block.stage().tooltipKey()).withStyle(ChatFormatting.GRAY));
-		if (block instanceof WeatheringCopper) {
+		if (WeatheringCopper.getNext(block).isPresent()) {
 			builder.accept(Component.translatable("tooltip.patinachime.hopper.ages").withStyle(ChatFormatting.GOLD));
-		} else {
+		} else if (!(block instanceof WeatheringCopper)) {
 			builder.accept(Component.translatable("tooltip.patinachime.hopper.waxed").withStyle(ChatFormatting.GRAY));
 		}
 	}

@@ -1,52 +1,16 @@
 # Modrinth listing
 
+Not submitted. Modrinth's [Content Rules](https://modrinth.com/legal/rules) don't allow a public project that is primarily or entirely AI output, and Claude wrote this mod's code, the scripts that draw its art and its listing text. A public listing depends on the steps below.
+
 Slug: `patina-and-chime`. Type: mod. Loader: Fabric. Game version: 26.2. Client and server: both required. Licence: MIT. Dependency: Fabric API (required). Source: <https://github.com/gr8monk3ys/patina-and-chime>. Issues: <https://github.com/gr8monk3ys/patina-and-chime/issues>. Categories: game-mechanics, technology, utility.
 
-## Summary
+## Before submitting
 
-Copper ages, and each age has its own job. Amethyst hears. Adds copper hoppers, verdigris, a tuning fork, amethyst at the enchanting table and crystals that grow to music.
-
-## Description
-
-Patina & Chime gives copper and amethyst one shared idea, built from what vanilla already hints at. A copper bulb dims as it oxidizes, so copper ages into something different. Amethyst chimes when you walk on it, so amethyst hears.
-
-### Copper hoppers
-
-Copper is cheaper than iron, so a copper hopper is slower than an iron one at every stage. In exchange, each stage does a different job, and no stage is simply the best.
-
-| Stage | Ticks per item | Pulls from the container above | Picks up dropped items | Redstone |
-|---|---|---|---|---|
-| Copper | 12 | Yes | Yes | Power locks it, like vanilla |
-| Exposed | 16 | No | Yes | Power locks it, like vanilla |
-| Weathered | 24 | Yes | Yes | Only runs while powered |
-| Oxidized | 32 | Yes | No | Power locks it, like vanilla |
-
-A vanilla hopper moves an item every 8 ticks. Copper hoppers age on their own. Wax one with honeycomb to keep its job, and scrape it with an axe to step it back. Its items stay put through every change.
-
-Craft one like a vanilla hopper, with 5 copper ingots and a chest.
-
-### Verdigris
-
-Scraping oxidation off copper with an axe drops a flake of verdigris. Use a flake on unwaxed copper to age it one stage, so you can reach the job you want without waiting for hours. You can also craft it from a copper ingot and a water bucket, or turn it into cyan dye.
-
-### Tuning fork
-
-Strike it to listen for budding amethyst within 32 blocks. The sound and an action bar message tell you how close it is, so it works with the sound off too.
-
-### Amethyst at the enchanting table
-
-The lapis slot also takes amethyst shards. Shards cost double what lapis does, and they show every enchantment in each offer. They only reveal an offer, and never change it. Lapis works exactly as it does in vanilla.
-
-### Music grows crystals
-
-Budding amethyst within 8 blocks of a playing jukebox, or a note block that has just played, grows crystals 2.5 times as fast. Note particles show you when it's working.
-
-### Amethyst note block
-
-Put a note block on a Block of Amethyst to play a pitched amethyst sound.
-
-### Good to know
-
-- Your client and any server you join both need the mod, along with Fabric API.
-- It has been tested alongside Lithium and Easy Magic. Easy Magic replaces the enchanting table's menu, so shards don't work on its tables, while lapis still does.
-- All art is original, and the sounds reuse vanilla's audio.
+1. Ask Modrinth support whether hand-drawn art and a hand-written page are enough while the code stays AI-written. Don't start on the art until they answer.
+2. Draw all 19 images by hand from scratch, without tracing the current ones, because the rules also cover images derived from AI output:
+   - 12 block textures, 16×16: outside, top and inside for each of the 4 stages. Waxed blocks reuse these.
+   - 6 item textures, 16×16: one hopper per stage, the tuning fork and verdigris.
+   - The icon, 128×128.
+3. Release a new version with that art, and take new gallery screenshots from it with `./gradlew productionClientGameTest`.
+4. Write the page by hand. The summary should be short, unformatted and not repeat the title. [CURSEFORGE.md](CURSEFORGE.md) has the facts to work from.
+5. Turn on the "Contains AI-generated content" disclosure.

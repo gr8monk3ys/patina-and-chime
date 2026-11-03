@@ -43,7 +43,7 @@ Everything else matches the vanilla hopper: 5 slots, facing and pushing, compara
 
 - **Aging:** unwaxed stages age with vanilla's random-tick copper logic. Waxed stages never age and behave like their unwaxed stage. Honeycomb waxes, and an axe scrapes or removes wax, through the same vanilla and Fabric paths as other copper blocks.
 - **Inventory must survive every stage change** (aging, scraping, waxing, wax removal, verdigris) with no items lost, dropped or duplicated.
-- **Tooltips:** each item shows its stage's job. Unwaxed items also warn that the hopper ages and that wax keeps its job. An unwaxed hopper changes behaviour on its own, so this warning is how players avoid a farm quietly stalling.
+- **Tooltips:** each item shows its stage's job. Unwaxed items that can still age also warn about it and say that wax keeps the job. An unwaxed hopper changes behaviour on its own, so this warning is how players avoid a farm quietly stalling.
 - **Recipes:** `copper_hopper` uses the vanilla hopper shape with 5 copper ingots and a chest. Each stage plus a honeycomb crafts to its waxed version.
 - **Block properties:** vanilla hopper strength and shape, copper sound, pickaxe required. Each block drops itself at its own stage, plus its contents.
 

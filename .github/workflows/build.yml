@@ -23,7 +23,21 @@ jobs:
         run: chmod +x ./gradlew
       - name: build
         run: ./gradlew build
+      - name: game tests
+        run: ./gradlew runGameTest
+      - name: client game tests
+        # The runner has no sound device, and without one the game turns sound off and the tests hear nothing.
+        env:
+          ALSOFT_DRIVERS: 'null'
+        run: xvfb-run --auto-servernum ./gradlew runClientGameTest
+      - name: capture client screenshots
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Client screenshots
+          path: build/run/clientGameTest/screenshots/
       - name: capture build artifacts
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: Artifacts

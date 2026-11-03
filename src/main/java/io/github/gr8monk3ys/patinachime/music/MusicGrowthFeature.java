@@ -54,7 +54,7 @@ public final class MusicGrowthFeature {
 	}
 
 	public static int growthChance(ServerLevel level, BlockPos pos, int vanillaChance) {
-		if (!tracker(level).isActiveNear(pos, level.getGameTime())) {
+		if (vanillaChance <= BOOSTED_GROWTH_CHANCE || !tracker(level).isActiveNear(pos, level.getGameTime())) {
 			return vanillaChance;
 		}
 
