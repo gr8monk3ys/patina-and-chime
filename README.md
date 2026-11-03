@@ -8,6 +8,7 @@ A vanilla+ Fabric mod for Minecraft 26.2 that gives copper and amethyst a shared
 - **Amethyst at the enchanting table:** shards cost double what lapis does, and show every enchantment in an offer.
 - **Music grows crystals:** a jukebox or note block speeds up budding amethyst nearby.
 - **Amethyst note block instrument:** put a note block on a Block of Amethyst.
+- **Shatter note:** the top note of that instrument harvests crystals nearby, at half yield.
 
 Design: [docs/specs/2026-11-02-first-release-design.md](docs/specs/2026-11-02-first-release-design.md).
 
@@ -30,6 +31,16 @@ Copper is cheaper than iron, so a copper hopper is slower than a vanilla one at 
 | Oxidized | 32 | Yes | No | Power locks it, like vanilla |
 
 A vanilla hopper moves an item every 8 ticks. Copper hoppers age on their own. Wax one with honeycomb to keep its job, and scrape it with an axe to step it back. Its items stay put through every change.
+
+## Shatter note
+
+Put a note block on a Block of Amethyst and set it to its top note, 24 right-clicks from the lowest. Playing that note breaks every full-grown cluster on budding amethyst within 8 blocks. Each cluster drops 2 shards, where a pickaxe gets 4, and a copper hopper underneath can collect them. An oxidized one won't, because it doesn't pick up dropped items. Buds, budding amethyst and clusters on any other block are left alone.
+
+- Redstone or a left-click at the top note fires it.
+- A right-click fires it when it steps the note from 23 up to the top. A right-click at the top wraps round to the lowest note and breaks nothing.
+- Each note block can do this once per second, and the note still counts as music in between.
+
+There's no option to turn this off, and land-claim mods may not stop it, so a player outside a claim could harvest a farm inside one. They'd get half the yield and the crystals grow back.
 
 ## Recipes
 

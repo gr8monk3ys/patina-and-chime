@@ -56,7 +56,9 @@ Search order:
 
 ## Performance
 
-There's no cooldown at first, because a repeat note finds nothing until crystals regrow. Measure it with 16 qualifying note blocks firing as fast as redstone allows, each surrounded by grown clusters and by empty space. If that costs more than 1 ms per game tick, add a one-second cooldown per note block, stored like `MusicTracker` and not saved.
+The plan was no cooldown unless 16 qualifying note blocks firing as fast as redstone allows cost more than 1 ms per game tick. They measured 0.8 to 1.3 ms across runs, so each note block now has a one-second cooldown, stored in a `MusicTracker` and not saved. With it, the worst search costs about 0.1 to 0.2 ms per game tick for 16 note blocks.
+
+Those figures time the search only, not the block breaking that follows it. A repeat note within the second doesn't search, and still counts as music.
 
 ## Servers
 
@@ -84,6 +86,7 @@ Fabric GameTests, written before the code where practical:
 | Sphere reaching an unloaded chunk | The chunk stays unloaded |
 | Fresh copper hopper under a cluster | Collects the shards |
 | Oxidized copper hopper under a cluster | Leaves them |
+| Second top note within a second | Nothing breaks, until the second has passed |
 
 Run the game and client suites plain and on the real jar before release, and the compatibility mods as for 0.1.2.
 
@@ -99,7 +102,6 @@ Update the README, both listings, the changelog and the testing guide. Add the l
 
 ## Left out on purpose
 
-- A cooldown, unless the measurement above calls for one.
 - A gamerule or config file.
 - Breaking buds, or any note sequence. Sequences belong to the melody lock idea.
 - New blocks, items, art or audio files.

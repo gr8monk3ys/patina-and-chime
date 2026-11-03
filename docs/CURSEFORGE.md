@@ -10,7 +10,7 @@ Avatar: the mod icon at 400×400. Gallery, from `./gradlew productionClientGameT
 
 ## Summary
 
-Copper hoppers that change job as they age, plus verdigris, a tuning fork, amethyst at the enchanting table and crystals that grow to music.
+Copper hoppers that change job as they age, plus verdigris, a tuning fork, amethyst at the enchanting table and crystals that grow to music and shatter on a high note.
 
 ## Description
 
@@ -51,6 +51,12 @@ Budding amethyst within 8 blocks of a playing jukebox, or a note block that has 
 
 Put a note block on a Block of Amethyst to play a pitched amethyst sound.
 
+### Shatter note
+
+Set an amethyst note block to its top note, 24 right-clicks from the lowest. Playing that note breaks every full-grown cluster on budding amethyst within 8 blocks. Each cluster drops 2 shards, where a pickaxe gets 4, and a copper hopper underneath can collect them. Buds, budding amethyst and clusters on any other block are left alone.
+
+Redstone or a left-click at the top note fires it, and so does a right-click stepping up from the note below. A right-click at the top wraps round to the lowest note and breaks nothing. Each note block can do this once per second.
+
 ### Shards from a Block of Amethyst
 
 A Block of Amethyst crafts into 4 shards, the reverse of vanilla's recipe.
@@ -58,6 +64,7 @@ A Block of Amethyst crafts into 4 shards, the reverse of vanilla's recipe.
 ### Good to know
 
 - Your client and any server you join both need the mod, along with Fabric API.
+- Server owners: the shatter note has no off switch, and land-claim mods may not stop it. A player outside a claim could harvest an amethyst farm inside one, at half yield, and the crystals grow back.
 - It has been tested alongside Sodium, Iris, Lithium, FerriteCore, Krypton, Continuity, Mod Menu, JEI, REI, Jade, WTHIT, AppleSkin and Easy Magic. Easy Magic replaces the enchanting table's menu, so shards don't work on its tables, while lapis still does.
 - The art isn't copied from Minecraft: scripts in the source repo draw it. The sounds reuse vanilla's audio.
 

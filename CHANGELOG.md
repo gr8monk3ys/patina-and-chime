@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+### Added
+
+- The shatter note: the top note of an amethyst note block breaks every full-grown crystal on budding amethyst within 8 blocks, for 2 shards each. Each note block can do this once per second, and there's no option to turn it off.
+
 ## 0.1.3
 
 ### Added
