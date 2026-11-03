@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+### Added
+
+- A Block of Amethyst crafts into 4 amethyst shards. Four shards already make a block in vanilla, so it now works both ways.
+
 ## 0.1.2
 
 ### Fixed

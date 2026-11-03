@@ -4,7 +4,7 @@ Not submitted. Submit once someone other than the author has played it.
 
 Name: Patina & Chime. Slug: `patina-and-chime`. Type: Mods. Loader: Fabric. Game version: 26.2. Java: 25. Client and server: both. Release type: Release. Licence: MIT. Required dependency: Fabric API 0.161.0 or newer. Source: <https://github.com/gr8monk3ys/patina-and-chime>. Issues: <https://github.com/gr8monk3ys/patina-and-chime/issues>. Categories: Technology, and Utility & QoL (check the names on the form).
 
-File: `patina-and-chime-0.1.2+26.2.jar` from the `v0.1.2` release, sha256 `c434d912e2661deeb604a7b93ca6f73e7d2d1046621cf9f05c569bb1ed7b0ace`. Changelog: First release.
+File: `patina-and-chime-0.1.3+26.2.jar` from the `v0.1.3` release, sha256 `a6ed0e798dae5a514d9e770263b46bb42de320b256b0d11871d6f1d446ee7d8b`. Changelog: First release.
 
 Avatar: the mod icon at 400×400. Gallery, from `./gradlew productionClientGameTest`: `0000_hoppers-from-the-side`, `0001_hoppers-from-above`, `0003_hopper-menu`, `0007_hopper-tooltip`, `0015_enchanting-3-shards-offer-3`, `0019_enchanting-lapis-offer-3`, `0020_music-growth-particles`.
 
