@@ -27,5 +27,7 @@
 	"subtitles.patinachime.tuning_fork.steady": "Tuning Fork hums steadily",
 	"subtitles.patinachime.tuning_fork.strong": "Tuning Fork hums strongly",
 	"subtitles.patinachime.note_block.amethyst": "Note Block chimes",
+	"gamerule.patinachime.shatter_note": "Shatter note",
+	"gamerule.patinachime.shatter_note.description": "The top note of an amethyst note block breaks full-grown amethyst clusters nearby",
 	"container.patinachime.enchant.shards": "%s Amethyst Shards"
 }

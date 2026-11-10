@@ -64,6 +64,8 @@ Those figures time the search only, not the block breaking that follows it. A re
 
 There's no off switch, keeping to the first release's no-config decision. The worst a griefer can do is harvest a farm at half yield, which a piston can already do, and the crystals grow back. Land-claim mods may not stop it, so the listing must say so.
 
+Changed in 0.2.1 (2026-11-09): there is now an off switch, the game rule `patinachime:shatter_note`, on by default. The reason is land claims. The note breaks clusters through `level.destroyBlock` with no player or entity behind it, so a claim mod such as Open Parties and Claims has nobody to refuse, and a note block outside a claim reaches clusters inside it. This follows from the code; it was not tried inside a real claim. A factions server can't ship the mod on that risk. A game rule was picked over a config file because it needs no file format or reload code, it's saved with the world, and operators already know `/gamerule`. A check against one claim mod was left out: it would tie the mod to that mod's API. With the rule off, `onNotePlayed` returns before the cooldown is marked, and the note still counts as music.
+
 ## Testing
 
 Fabric GameTests, written before the code where practical:
@@ -87,6 +89,7 @@ Fabric GameTests, written before the code where practical:
 | Fresh copper hopper under a cluster | Collects the shards |
 | Oxidized copper hopper under a cluster | Leaves them |
 | Second top note within a second | Nothing breaks, until the second has passed |
+| Game rule off, then on again (0.2.1) | Nothing breaks and the note still counts as music; back on, the same note block breaks the cluster at once |
 
 Run the game and client suites plain and on the real jar before release, and the compatibility mods as for 0.1.2.
 
@@ -102,6 +105,6 @@ Update the README, both listings, the changelog and the testing guide. Add the l
 
 ## Left out on purpose
 
-- A gamerule or config file.
+- A gamerule or config file. (A game rule was added in 0.2.1; see Servers.)
 - Breaking buds, or any note sequence. Sequences belong to the melody lock idea.
 - New blocks, items, art or audio files.

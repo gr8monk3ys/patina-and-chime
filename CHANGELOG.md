@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+### Added
+
+- A game rule to turn the shatter note off: `/gamerule patinachime:shatter_note false`. It's on by default, so nothing changes unless you set it. With it off the top note only plays, and still counts as music. Land-claim mods may not stop the shatter note, so this is the switch for servers that have claims.
+
 ## 0.2.0
 
 ### Added
