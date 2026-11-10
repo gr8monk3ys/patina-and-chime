@@ -40,7 +40,7 @@ Put a note block on a Block of Amethyst and set it to its top note, 24 right-cli
 - A right-click fires it when it steps the note from 23 up to the top. A right-click at the top wraps round to the lowest note and breaks nothing.
 - Each note block can do this once per second, and the note still counts as music in between.
 
-There's no option to turn this off, and land-claim mods may not stop it, so a player outside a claim could harvest a farm inside one. They'd get half the yield and the crystals grow back.
+Land-claim mods may not stop it, so a player outside a claim could harvest a farm inside one. They'd get half the yield and the crystals grow back. A server that minds can turn the shatter note off with `/gamerule patinachime:shatter_note false`. The note then only plays, and still counts as music. The rule is on by default and is saved with the world.
 
 ## Recipes
 

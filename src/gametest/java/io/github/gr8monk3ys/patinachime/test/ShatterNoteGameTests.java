@@ -128,6 +128,33 @@ public class ShatterNoteGameTests {
 		helper.succeed();
 	}
 
+	// Off and back on inside one tick, like block drops above, so no other test's note plays while it is off.
+	@GameTest(environment = SHATTER)
+	public void theGameRuleTurnsItOffAndTheNoteStillCountsAsMusic(GameTestHelper helper) {
+		ServerLevel level = helper.getLevel();
+		GameRules rules = level.getGameRules();
+		helper.assertTrue(rules.get(ShatterNoteFeature.ENABLED), "the shatter note should be on by default");
+		placeNote(helper, TOP_NOTE);
+		placeCluster(helper);
+
+		rules.set(ShatterNoteFeature.ENABLED, false, level.getServer());
+		try {
+			playTopNote(helper);
+		} finally {
+			rules.set(ShatterNoteFeature.ENABLED, true, level.getServer());
+		}
+
+		helper.assertBlockPresent(Blocks.AMETHYST_CLUSTER, CLUSTER);
+		helper.assertValueEqual(shards(helper), 0, "shards with the shatter note off");
+		helper.assertTrue(MusicGrowthFeature.tracker(level).isActiveNear(helper.absolutePos(BUDDING), level.getGameTime()), "the note should still grow crystals");
+
+		// Turning it off left no cooldown behind, so the same note block shatters as soon as the rule is back on.
+		playTopNote(helper);
+		helper.assertBlockPresent(Blocks.AIR, CLUSTER);
+		helper.assertValueEqual(shards(helper), 2, "shards once the rule is back on");
+		helper.succeed();
+	}
+
 	@GameTest(environment = SHATTER)
 	public void topNoteStillCountsAsMusic(GameTestHelper helper) {
 		placeNote(helper, TOP_NOTE);

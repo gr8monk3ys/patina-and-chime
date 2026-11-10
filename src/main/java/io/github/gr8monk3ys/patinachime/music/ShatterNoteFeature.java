@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.server.level.ServerLevel;
@@ -15,10 +16,13 @@ import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRuleCategory;
 
 /**
  * The top note of an amethyst note block breaks every grown cluster in range. With no tool, the vanilla loot table gives
- * 2 shards instead of a pickaxe's 4, so the note is a hands-free harvest at half yield.
+ * 2 shards instead of a pickaxe's 4, so the note is a hands-free harvest at half yield. The game rule
+ * {@code patinachime:shatter_note} turns it off for a world; the note still sounds and still counts as music.
  */
 public final class ShatterNoteFeature {
 	public static final int TOP_NOTE = 24;
@@ -29,6 +33,10 @@ public final class ShatterNoteFeature {
 
 	// Which note blocks searched recently. Not persistent, like music, and held by the level object.
 	private static final AttachmentType<MusicTracker> COOLDOWNS = AttachmentRegistry.createDefaulted(PatinaChime.id("shatter_cooldowns"), MusicTracker::new);
+
+	// On by default, so a world that never touches it plays as before. A server with land claims can turn it off:
+	// the note breaks blocks with no player behind it, so a claim mod has nobody to refuse.
+	public static final GameRule<Boolean> ENABLED = GameRuleBuilder.forBoolean(true).category(GameRuleCategory.UPDATES).buildAndRegister(PatinaChime.id("shatter_note"));
 
 	private ShatterNoteFeature() {
 	}
@@ -41,6 +49,10 @@ public final class ShatterNoteFeature {
 	}
 
 	public static void onNotePlayed(ServerLevel level, BlockPos note) {
+		if (!level.getGameRules().get(ENABLED)) {
+			return;
+		}
+
 		BlockState state = level.getBlockState(note);
 		if (state.is(Blocks.NOTE_BLOCK) && state.getValue(NoteBlock.NOTE) == TOP_NOTE && AmethystNoteFeature.isAmethystNote(level, note)) {
 			MusicTracker cooldowns = cooldowns(level);

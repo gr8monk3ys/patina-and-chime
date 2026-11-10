@@ -64,7 +64,7 @@ A Block of Amethyst crafts into 4 shards, the reverse of vanilla's recipe.
 ### Good to know
 
 - Your client and any server you join both need the mod, along with Fabric API.
-- Server owners: the shatter note has no off switch, and land-claim mods may not stop it. A player outside a claim could harvest an amethyst farm inside one, at half yield, and the crystals grow back.
+- Server owners: land-claim mods may not stop the shatter note. A player outside a claim could harvest an amethyst farm inside one, at half yield, and the crystals grow back. From 0.2.1, `/gamerule patinachime:shatter_note false` turns it off for the world.
 - It has been tested alongside Sodium, Iris, Lithium, FerriteCore, Krypton, Continuity, Mod Menu, JEI, REI, Jade, WTHIT, AppleSkin and Easy Magic. Easy Magic replaces the enchanting table's menu, so shards don't work on its tables, while lapis still does.
 - The art isn't copied from Minecraft: scripts in the source repo draw it. The sounds reuse vanilla's audio.
 
