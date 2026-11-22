@@ -70,6 +70,13 @@ fabricApi {
 	}
 }
 
+// Unit tests for the logic that does not need a running game. Game behaviour is covered by the GameTests.
+sourceSets {
+	test {
+		java.setSrcDirs(["tests/java"])
+	}
+}
+
 configurations {
 	productionTestMods {
 		transitive = false
@@ -80,6 +87,10 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	testImplementation platform("org.junit:junit-bom:5.13.4")
+	testImplementation "org.junit.jupiter:junit-jupiter"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 
 	if (project.hasProperty("compat")) {
 		project.property("compat").split(",").each { name ->
@@ -126,6 +137,10 @@ tasks.register("productionClientGameTest", net.fabricmc.loom.task.prod.ClientPro
 		eula.parentFile.mkdirs()
 		eula.text = "eula=true\n"
 	}
+}
+
+tasks.named("test") {
+	useJUnitPlatform()
 }
 
 processResources {

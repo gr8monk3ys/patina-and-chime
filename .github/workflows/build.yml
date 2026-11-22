@@ -21,6 +21,8 @@ jobs:
           distribution: 'microsoft'
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
+      - name: lint texture scripts
+        run: pipx run ruff check tools
       - name: build
         run: ./gradlew build
       - name: game tests
