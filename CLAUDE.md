@@ -11,6 +11,8 @@ Fabric mod for Minecraft 26.2 (Java 25). The design is in `docs/specs/`; read it
 
 ## Commands
 
+`make check` runs the Python lint, the build with its unit tests, and the server GameTests. Unit tests live in `tests/java/`.
+
 ```bash
 ./gradlew build
 ```

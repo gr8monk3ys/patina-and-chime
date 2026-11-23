@@ -1,0 +1,14 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff check
+        entry: ruff check
+        language: system
+        types: [python]
+      - id: compile
+        name: gradle compile
+        entry: sh ./gradlew compileJava compileClientJava --offline -q
+        language: system
+        pass_filenames: false
+        types: [java]
